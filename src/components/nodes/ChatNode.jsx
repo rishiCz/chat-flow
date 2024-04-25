@@ -3,16 +3,18 @@ import { Handle, Position, useEdges } from "reactflow";
 import { BiMessageRoundedDetail } from "react-icons/bi";
 
 export function ChatNode({ id, data }) {
-  const { setShowSettingsBar, text, setEdges } = data;
+  const { setShowSettingsBar, text, setEdges } = data; // passing props through the data object of node
   const edges = useEdges();
 
+  // function to remove source handler connection if it exists
+  // thi will ensure only one source handler originating
   const removeConnection = () => {
     if (!isValidConnection()) {
       const newEdges = edges.filter((edge) => edge.source !== id);
       setEdges(newEdges);
     }
   };
-
+ // function to check if current node's source handler is already connected
   const isValidConnection = () => {
     if (edges.find((edge) => edge.source === id)) return false;
     return true;
@@ -21,7 +23,7 @@ export function ChatNode({ id, data }) {
   return (
     <div
       onClick={() => {
-        setShowSettingsBar(id);
+        setShowSettingsBar(id); // clicking on the node will open settings panel with this node's id
       }}
       className="rounded-lg overflow-hidden w-[250px] shadow-lg cursor-pointer"
     >
@@ -36,12 +38,12 @@ export function ChatNode({ id, data }) {
       <Handle
         type="source"
         position={Position.Right}
-        onMouseDown={removeConnection}
+        onMouseDown={removeConnection} // whenever you click or drag on source handler it will remove previous edge
       />
       <Handle
         type="target"
         position={Position.Left}
-        isValidConnection={() => false}
+        isValidConnection={() => false} // made it so that the target cannot link to source only source can link to target
       />
     </div>
   );

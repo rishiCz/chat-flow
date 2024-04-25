@@ -86,8 +86,8 @@ export default function App() {
 
   return (
     <div className=" h-[100vh] flex flex-col">
-      <SaveError showError={showError} /> {/* */}
-      <NavBar checkEdges={checkEdges} />
+      <SaveError showError={showError} /> {/* could not save flow error component  */}
+      <NavBar checkEdges={checkEdges} />  {/* passing the check edges function to Navbars save button */}
       <div className="w-[100%] h-full flex">
         <ReactFlow
           ref={flowRef}
